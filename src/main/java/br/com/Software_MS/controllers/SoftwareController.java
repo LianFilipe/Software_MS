@@ -19,6 +19,11 @@ public class SoftwareController {
         return softwareService.listarTodos();
     }
 
+    @GetMapping("/{id}")
+    public SoftwareDTO listarPorId(@PathVariable Long id) {
+        return softwareService.listarPorId(id);
+    }
+
     @PostMapping
     public SoftwareDTO criar(@RequestBody SoftwareDTO softwareDTO) {
         return softwareService.salvar(softwareDTO);

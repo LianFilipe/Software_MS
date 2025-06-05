@@ -24,6 +24,12 @@ public class SoftwareService {
                 .collect(Collectors.toList());
     }
 
+    public SoftwareDTO listarPorId(Long id) {
+        Software software = softwareRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Software não encontrado com id: " + id));
+        return softwareDTOMapper.toDTO(software);
+    }
+
     public SoftwareDTO salvar(SoftwareDTO softwareDTO) {
         Software software = softwareDTOMapper.toEntity(softwareDTO);
         Software salvo = softwareRepository.save(software);
@@ -44,7 +50,8 @@ public class SoftwareService {
         return softwareDTOMapper.toDTO(atualizado);
     }
 
-    public void deletar(Long id) {
+    public String deletar(Long id) {
         softwareRepository.deleteById(id);
+        return "Software Deletado com sucesso";
     }
 }
